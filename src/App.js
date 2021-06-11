@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Log from './Log';
+import LogOut from './LogOut';
 
 function App() {
 
@@ -37,12 +39,13 @@ function App() {
   function logOut() {
     const GoogleAuth = window.gapi.auth2.getAuthInstance();
     GoogleAuth.signOut().then(() => console.log('user Out'), () => console.log('error user out'));
+    setUserName(null);
+    setUserEmail(null);
   }
 
   return (
     <div className="App">
-      <button onClick={log}>Login</button>
-      <button onClick={logOut}>Logout</button>
+      {!userName ? <Log log={log} /> : <LogOut name={userName} email={userEmail} logOut={logOut} />}
     </div>
   );
 }
